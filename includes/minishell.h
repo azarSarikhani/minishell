@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:50:57 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/05 13:35:07 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:38:50 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void		free_env(t_env **env);
 
 //here_doc
 int			here_doc(char	*delim);
-void		free_hrdc(t_heredoc **hrdc);
 
 //signal
 void		init_signal(void);
