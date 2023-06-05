@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:11:43 by asarikha          #+#    #+#             */
-/*   Updated: 2023/06/02 12:49:44 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:07:15 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,18 @@ static	int	expand_content(t_token **token, int start, t_env **env)
 	char	*value;
 
 	end = start;
-	while ((*token)->content[end] != ' ' && (*token)->content[end] != '\"')
+	while ((*token)->content[end] != ' ' && (*token)->content[end] != '\"'
+		&& (*token)->content[end] != '\'' && (*token)->content[end])
 		end++;
 	str = ft_substr((*token)->content, start, end - start);
 	if (!str)
 		return (EXIT_FAILURE);
 	value = find_value(env, str);
-	if (value)
+	if (replace_content(&((*token)->content), start - 1, end, value)
+		== EXIT_SUCCESS)
 	{
-		if (replace_content(&((*token)->content), start - 1, end, value)
-			== EXIT_SUCCESS)
-		{
-			free(str);
-			return (EXIT_SUCCESS);
-		}
+		free(str);
+		return (EXIT_SUCCESS);
 	}
 	free(str);
 	return (EXIT_FAILURE);

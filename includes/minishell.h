@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:50:57 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/02 13:46:09 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:35:07 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ typedef struct s_builtin
 	char	*name;
 	int		(*builtin)(t_env **, t_command *, int);
 }		t_builtin;
-
-typedef struct s_heredoc
-{
-	char				*line;
-	struct s_heredoc	*next;
-}						t_heredoc;
 
 typedef struct s_info
 {

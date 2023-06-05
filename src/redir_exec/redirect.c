@@ -36,11 +36,13 @@ static int	**set_up_exe(t_command *command, t_env *env)
 {
 	int	**pipes;
 
+	get_exe_path(&env, command);
+	if (!command)
+		return (NULL);
 	g_info.n_cmd = count_commands(command);
 	pipes = set_up_pipes(command, g_info.n_cmd);
 	if (!pipes)
 		return (NULL);
-	get_exe_path(&env, command);
 	return (pipes);
 }
 
@@ -53,6 +55,8 @@ int	redirect_exe(t_command *command, t_env *env)
 		return (-1);
 	g_info.fds = set_up_exe(command, env);
 	g_info.pids = ft_calloc(g_info.n_cmd, sizeof(int));
+	if (!g_info.fds)
+		return (1);
 	i = -1;
 	tmp = command;
 	while (++i < g_info.n_cmd)
