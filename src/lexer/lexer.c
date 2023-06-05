@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:11:43 by asarikha          #+#    #+#             */
-/*   Updated: 2023/05/25 12:19:09 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:44:29 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	skip_white(t_token **tokens, char *line, int *flag)
 		else
 			break ;
 	}
-	if (add_token(tokens, new_token(" ", SPACE), flag) == EXIT_FAILURE
+	if (add_token(tokens, new_token(" ", space), flag) == EXIT_FAILURE
 		|| *flag == -1)
 		*flag = -1;
 	return (i);
@@ -42,7 +42,7 @@ static int	get_string(t_token **tokens, char *line, int quote, int *flag)
 	if (!str)
 		*flag = -1;
 	ft_strlcpy(str, line, i + 2);
-	if (add_token(tokens, new_token(str, STRING), flag) == EXIT_FAILURE
+	if (add_token(tokens, new_token(str, string), flag) == EXIT_FAILURE
 		|| *flag == -1)
 	{
 		if (str)
@@ -69,7 +69,7 @@ static int	get_text(t_token **tokens, char *line, int *flag)
 	if (!str)
 		*flag = -1;
 	ft_strlcpy(str, line, i + 1);
-	if (add_token(tokens, new_token(str, STRING), flag) == EXIT_FAILURE
+	if (add_token(tokens, new_token(str, string), flag) == EXIT_FAILURE
 		|| *flag == -1)
 	{
 		if (str)
@@ -96,11 +96,11 @@ int	init_lexer(char *line, t_token	**tokens)
 		else if (line[i] == '\'')
 			i += get_string(tokens, &line[i], '\'', &indicator);
 		else if (line[i] == '|')
-			i += add_token(tokens, new_token("|", PIPE), &indicator);
+			i += add_token(tokens, new_token("|", pipe_sym), &indicator);
 		else if (line[i] == '>')
-			i += add_token(tokens, new_token(">", GREATER_THAN), &indicator);
+			i += add_token(tokens, new_token(">", greater_than), &indicator);
 		else if (line[i] == '<')
-			i += add_token(tokens, new_token("<", LESS_THAN), &indicator);
+			i += add_token(tokens, new_token("<", less_than), &indicator);
 		else if (ft_isprint(line[i]) && line[i] != '|' && line[i] != ' ')
 			i += get_text(tokens, &line[i], &indicator);
 		if (indicator == -1)

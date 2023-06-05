@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:53:05 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 16:12:44 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:05:31 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_cd(t_env **env, t_command *cmd, int out_fd)
 	t_env	*oldpwd;
 	t_env	*pwd;
 	char	cur_dir[PATH_MAX];
-
 
 	if (!cmd->params[1] || out_fd < 0)
 		return (EXIT_FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:11:43 by asarikha          #+#    #+#             */
-/*   Updated: 2023/05/22 14:35:51 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:49:10 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct s_token
 
 enum e_token_type
 {
-	STRING,
-	COMMAND,
-	GREATER_THAN,
-	GREATER_GREATER,
-	LESS_THAN,
-	LESS_LESS,
-	PIPE,
-	SPACE
+	string,
+	command_type,
+	greater_than,
+	greater_greater,
+	less_than,
+	less_less,
+	pipe_sym,
+	space
 };
 
 t_token		*new_token(char *content, int token_type);

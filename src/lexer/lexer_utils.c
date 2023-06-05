@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:11:43 by asarikha          #+#    #+#             */
-/*   Updated: 2023/06/01 14:47:02 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:44:03 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 BOOL	redir_check(t_token *token)
 {
-	if (token && (token->token_type == GREATER_THAN
-			|| token->token_type == GREATER_GREATER
-			|| token->token_type == LESS_LESS
-			|| token->token_type == LESS_THAN))
+	if (token && (token->token_type == greater_than
+			|| token->token_type == greater_greater
+			|| token->token_type == less_less
+			|| token->token_type == less_than))
 		return (TRUE);
 	return (FALSE);
 }
@@ -30,7 +30,7 @@ int	remove_quote(t_token **tokens)
 	temp = *tokens;
 	while (temp != NULL)
 	{
-		if (temp->token_type == STRING)
+		if (temp->token_type == string)
 		{
 			if ((temp->content)[0] == '\'' || (temp->content)[0] == '\"')
 			{
@@ -59,7 +59,7 @@ void	remove_space(t_token **token)
 	previous = temp;
 	while (temp != NULL)
 	{
-		if (temp->token_type == SPACE)
+		if (temp->token_type == space)
 		{
 			if (temp == *token)
 			{
@@ -111,8 +111,8 @@ int	add_token(t_token **token, t_token *new, int *flag)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-	if (new->token_type == PIPE || new->token_type == LESS_THAN
-		|| new->token_type == GREATER_THAN)
+	if (new->token_type == pipe_sym || new->token_type == less_than
+		|| new->token_type == greater_than)
 		return (1);
 	return (EXIT_SUCCESS);
 }

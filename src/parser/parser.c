@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:56:51 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 10:18:30 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:50:28 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	count_params(t_token *token)
 	int	n_params;
 
 	n_params = 0;
-	while (token && token->token_type != PIPE)
+	while (token && token->token_type != pipe_sym)
 	{
 		if (ft_isredir(token))
 		{
@@ -29,7 +29,7 @@ int	count_params(t_token *token)
 			else
 				return (n_params);
 		}
-		if (token->token_type == STRING || token->token_type == COMMAND)
+		if (token->token_type == string || token->token_type == command_type)
 			n_params++;
 		token = token->next;
 	}
@@ -48,7 +48,7 @@ void	get_params(t_token *token, t_command *command)
 		free_command(&command);
 		ft_error(ENOMEM, "");
 	}
-	while (token && token->token_type != PIPE && i < command->n_params)
+	while (token && token->token_type != pipe_sym && i < command->n_params)
 	{
 		if (ft_isredir(token))
 				token = token->next->next;
@@ -61,7 +61,7 @@ void	get_params(t_token *token, t_command *command)
 
 static t_token	*redir_command(t_token *token, t_command *command)
 {
-	if (token->token_type >= LESS_THAN)
+	if (token->token_type >= less_than)
 	{
 		if (command->infile)
 			ft_free(command->infile);
@@ -92,25 +92,25 @@ int	extract_command(t_token *token, t_command *command, int id)
 	params_flag = 0;
 	while (tmp)
 	{
-		if ((tmp->token_type == STRING || tmp->token_type == COMMAND)
+		if ((tmp->token_type == string || tmp->token_type == command_type)
 			&& !params_flag)
 		{
 			get_params(token, command);
 			params_flag = 1;
 		}
-		if (tmp->token_type == COMMAND)
+		if (tmp->token_type == command_type)
 		{
 			command->command = ft_strdup(tmp->content);
 			command->id = id++;
 			if (!command->command)
 				return (-1);
 		}
-		else if (tmp->token_type == PIPE)
+		else if (tmp->token_type == pipe_sym)
 		{
 			command->next = init_command(tmp->next, id);
 			return (0);
 		}
-		else if (tmp->token_type != STRING && tmp->token_type != COMMAND)
+		else if (tmp->token_type != string && tmp->token_type != command_type)
 			tmp = redir_command(tmp, command);
 		if (tmp)
 			tmp = tmp->next;

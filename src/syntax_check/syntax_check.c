@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:31:11 by asarikha          #+#    #+#             */
-/*   Updated: 2023/05/31 13:13:17 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/02 13:36:12 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static BOOL	empty_pipe(char *line)
 			result = skip_pipe(line, i);
 			if (result == -1)
 			{
-				ft_putstr_fd("GayAsHell: syntax error ", 2);
-				ft_putstr_fd("near unexpected token `newline'\n", 2);
+				ft_putstr_fd("\033[1m\e[31mGayAsHell\x1b[m:  syntax error ", 2);
+				ft_putstr_fd("near unexpected token `newline', sis 💅\n", 2);
 				return (TRUE);
 			}
 			i += result;
@@ -100,8 +100,8 @@ static BOOL	empty_redir(char *line)
 			result = skip_redir(&line[i]);
 			if (result == -1)
 			{
-				ft_putstr_fd("GayAsHell: syntax error ", 2);
-				ft_putstr_fd("near Empty unexpected `newline'\n", 2);
+				ft_putstr_fd("\033[1m\e[31mGayAsHell\x1b[m:  syntax error ", 2);
+				ft_putstr_fd("near Empty unexpected `newline', sis 💅\n", 2);
 				return (TRUE);
 			}
 			i += result;

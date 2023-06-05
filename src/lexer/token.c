@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:11:43 by asarikha          #+#    #+#             */
-/*   Updated: 2023/06/01 15:57:26 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:07:15 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,24 @@ static int	replace_content(char **content, int start, int rm_end, char *str)
 static int	re_label(t_token *temp)
 {
 	if (temp && !redir_check(temp))
-		temp->token_type = COMMAND;
+		temp->token_type = command_type;
 	else
 		while (temp && redir_check(temp))
 			temp = temp->next->next;
 	if (temp)
-		temp->token_type = COMMAND;
+		temp->token_type = command_type;
 	while (temp != NULL)
 	{
-		if (temp->token_type == PIPE)
+		if (temp->token_type == pipe_sym)
 		{
 			temp = temp->next;
 			if (!redir_check(temp))
-				temp->token_type = COMMAND;
+				temp->token_type = command_type;
 			else
 				while (temp && redir_check(temp))
 					temp = temp->next->next;
 			if (temp)
-				temp->token_type = COMMAND;
+				temp->token_type = command_type;
 		}
 		if (temp)
 			temp = temp->next;
@@ -75,20 +75,18 @@ static	int	expand_content(t_token **token, int start, t_env **env)
 	char	*value;
 
 	end = start;
-	while ((*token)->content[end] != ' ' && (*token)->content[end] != '\"')
+	while ((*token)->content[end] != ' ' && (*token)->content[end] != '\"'
+		&& (*token)->content[end] != '\'' && (*token)->content[end])
 		end++;
 	str = ft_substr((*token)->content, start, end - start);
 	if (!str)
 		return (EXIT_FAILURE);
 	value = find_value(env, str);
-	if (value)
+	if (replace_content(&((*token)->content), start - 1, end, value)
+		== EXIT_SUCCESS)
 	{
-		if (replace_content(&((*token)->content), start - 1, end, value)
-			== EXIT_SUCCESS)
-		{
-			free(str);
-			return (EXIT_SUCCESS);
-		}
+		free(str);
+		return (EXIT_SUCCESS);
 	}
 	free(str);
 	return (EXIT_FAILURE);

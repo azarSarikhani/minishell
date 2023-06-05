@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:02:34 by djagusch          #+#    #+#             */
-/*   Updated: 2023/05/11 11:09:06 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:04:06 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	print_token(t_token *token)
 
 	while (token)
 	{
-		if (token->token_type == STRING)
+		if (token->token_type == string)
 			ft_printf("string: %s\n", token->content);
-		else if (token->token_type == COMMAND)
+		else if (token->token_type == command_type)
 			ft_printf("cmd: %s\n", token->content);
-		else if (token->token_type >= GREATER_THAN
-			&& token->token_type <= LESS_LESS)
-			ft_printf("%s\n", quotes[token->token_type - GREATER_THAN]);
-		else if (token->token_type == PIPE)
+		else if (token->token_type >= greater_than
+			&& token->token_type <= less_less)
+			ft_printf("%s\n", quotes[token->token_type - greater_than]);
+		else if (token->token_type == pipe_sym)
 			ft_printf("%s\n", token->content);
-		else if (token->token_type == SPACE)
-			ft_printf("SPACE: %s\n", token->content);
+		else if (token->token_type == space)
+			ft_printf("space: %s\n", token->content);
 		printf("quote: %d\n", token->isquote);
 		printf("-------------------\n");
 		token = token->next;

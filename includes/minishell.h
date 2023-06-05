@@ -6,7 +6,7 @@
 /*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:50:57 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 16:18:14 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:46:39 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h>
 # include "libft.h"
 # include "syntax.h"
+# include "redirect.h"
 # include "lexer.h"
 # include "redirect.h"
 # include "ft_error.h"
@@ -31,7 +32,9 @@
 # define TRUE 1
 # define FALSE 0
 
-# define NAME "\e[34mGayAsHell$> \x1b[m"
+# define NAME "\e[38;2;228;3;3mG\e[38;2;255;140;0ma\e[38;2;255;237;0my\
+\e[38;2;0;128;38mA\e[38;2;36;64;182ms\e[38;2;120;61;150mH\x1b[m\
+\e[38;2;245;169;184mel\x1b[ml\e[38;2;91;206;250m$>\x1b[m "
 
 # define ON 1
 # define OFF 0
@@ -39,14 +42,8 @@
 typedef struct s_builtin
 {
 	char	*name;
-	int		(*builtin)(t_env **, t_command *, int out_fd);
+	int		(*builtin)(t_env **, t_command *, int);
 }		t_builtin;
-
-typedef struct s_heredoc
-{
-	char				*line;
-	struct s_heredoc	*next;
-}						t_heredoc;
 
 typedef struct s_info
 {
@@ -58,6 +55,7 @@ typedef struct s_info
 	int			n_cmd;
 	int			exit_value;
 	t_env		*env;
+	int			n_cmd;
 }		t_info;
 
 t_info		g_info;
@@ -87,7 +85,6 @@ void		free_env(t_env **env);
 
 //here_doc
 int			here_doc(char	*delim);
-void		free_hrdc(t_heredoc **hrdc);
 
 //signal
 void		init_signal(void);

@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:07:32 by djagusch          #+#    #+#             */
-/*   Updated: 2023/05/25 11:58:12 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/02 16:36:55 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_parser(t_command *command)
 		ft_printf("END\n");
 		return ;
 	}
-	ft_printf("COMMAND: %s\n", command->command);
+	ft_printf("command: %s\n", command->command);
 	ft_printf("ID: %d\n", command->id);
 	ft_printf("-----------------------\n");
 	ft_printf("PARAMS:\n");
@@ -31,14 +31,10 @@ void	print_parser(t_command *command)
 	ft_printf("-----------------------\n");
 	ft_printf("infile:\t%s\n", command->infile);
 	ft_printf("infile fd:\t%d\n", command->fds[0]);
-	if (command->infile)
-		close(command->fds[0]);
 	ft_printf("redirect:\t%d\n", command->in_redirect);
 	ft_printf("-----------------------\n");
 	ft_printf("outfile:\t%s\n", command->outfile);
 	ft_printf("outfile fd:\t%d\n", command->fds[1]);
-	if (command->outfile)
-		close(command->fds[1]);
 	ft_printf("redirect:\t%d\n", command->out_redirect);
 	ft_printf("=======================\n");
 	print_parser(command->next);

@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:53:17 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 15:32:37 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/03 08:59:48 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ int	ft_export(t_env **env, t_command *cmd, int out_fd)
 	char	**env_str;
 	int		ret;
 
-	if (!cmd->params)
+	if (!cmd || !cmd->params)
 		return (1);
 	i = 0;
 	elems = ft_count_elements(cmd->params);
 	if (elems == 1)
 		return (print_export(env, cmd, out_fd));
-	while (i++ < elems)
+	while (++i < elems)
 	{
 		eq_pos = invalid_env(cmd->params[i]);
 		env_str = split_env(cmd->params[i]);

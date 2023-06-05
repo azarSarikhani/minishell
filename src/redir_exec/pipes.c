@@ -6,7 +6,7 @@
 /*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:47:58 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 16:35:11 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:45:14 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 static void	enter_file_fds(t_command *command, int **pipes, int i)
 {
-	if (command->infile)
+	if (command->infile && pipes[i][0] != 0)
 	{
-		if (pipes[i][0] != 0 && close(pipes[i][0]) < 0)
+		if (close(pipes[i][0]) < 0)
 			ft_error(EPIPE, "");
 		pipes[i][0] = command->fds[0];
 	}
-	if (command->outfile)
+	if (command->outfile && pipes[i + 1][1] != 0)
 	{
-		if (pipes[i + 1][1] != 0 && close(pipes[i + 1][1]) < 0)
+		if (close(pipes[i + 1][1]) < 0)
 			ft_error(EPIPE, "");
 		pipes[i + 1][1] = command->fds[1];
 	}
-	else
+	else if (pipes[i + 1][1] == 0)
 		pipes[i + 1][1] = 1;
 }
 
@@ -44,7 +44,7 @@ static void	set_pipes(int **pipes, int n_cmd)
 	}
 }
 
-static int	**create_fd_arr(size_t n_elements, size_t n_entries)
+static int	**create_int_matrix(size_t n_elements, size_t n_entries)
 {
 	int		**fds;
 	size_t	i;
@@ -74,7 +74,7 @@ int	**set_up_pipes(t_command *command, int n_cmd)
 	i = 0;
 	if (!command)
 		return (NULL);
-	pipes = create_fd_arr(n_cmd + 1, 2);
+	pipes = create_int_matrix(n_cmd + 1, 2);
 	if (!pipes)
 		return (NULL);
 	set_pipes(pipes, n_cmd);
@@ -94,10 +94,13 @@ void	close_fds(int **fds, int cur, int n_cmd)
 	pipe = 0;
 	while (pipe <= n_cmd)
 	{
-		if (pipe != cur && pipe != n_cmd && fds[pipe][0] != 0)
+		if (pipe != cur && pipe != n_cmd && fds[pipe][0] > 0)
 			close(fds[pipe][0]);
-		if (pipe - 1 != cur && pipe != 0 && fds[pipe][1] != 1)
+		if (pipe != cur + 1 && fds[pipe][1] > 1)
 			close(fds[pipe][1]);
 		pipe++;
 	}
+	if (cur == n_cmd)
+		ft_wait();
 }
+

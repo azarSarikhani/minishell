@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 14:53:22 by djagusch          #+#    #+#             */
-/*   Updated: 2023/05/26 10:21:28 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:17:36 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_unset(t_env **env, t_command *cmd, int out_fd)
 			ft_free(remove->value);
 			remove->value = ft_calloc(1, sizeof(char));
 		}
+		i++;
 	}
 	return (0);
 }

@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_print_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 12:55:42 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/02 12:38:35 by djagusch         ###   ########.fr       */
+/*   Created: 2023/06/02 15:29:25 by djagusch          #+#    #+#             */
+/*   Updated: 2023/06/02 15:38:56 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "parser.h"
+#include "libft.h"
 
-BOOL	ft_isredir(t_token *token)
+void	ft_print_matrix(int **row_array, size_t row, size_t col)
 {
-	if (token->token_type >= greater_than
-		&& token->token_type <= less_less)
-		return (1);
-	return (0);
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	while (++i < row)
+	{
+		j = 0;
+		while (j < col)
+			ft_printf("%d ", row_array[i][j++]);
+		ft_printf("\n");
+	}
 }

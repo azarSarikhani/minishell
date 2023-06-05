@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   concat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 11:11:43 by asarikha          #+#    #+#             */
-/*   Updated: 2023/05/24 13:51:11 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/02 12:38:35 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ static int	concat_redir(t_token **token)
 {
 	t_token	*temp;
 
-	if (((*token)->token_type == GREATER_THAN && (*token)->next->token_type
-			== GREATER_THAN) || ((*token)->token_type == LESS_THAN
-			&& (*token)->next->token_type == LESS_THAN))
+	if (((*token)->token_type == greater_than && (*token)->next->token_type
+			== greater_than) || ((*token)->token_type == less_than
+			&& (*token)->next->token_type == less_than))
 	{
 		ft_free((*token)->content);
-		if ((*token)->token_type == GREATER_THAN)
+		if ((*token)->token_type == greater_than)
 		{
-			(*token)->token_type = GREATER_GREATER;
+			(*token)->token_type = greater_greater;
 			(*token)->content = ft_strdup(">>");
 		}
 		else
 		{
-			(*token)->token_type = LESS_LESS;
+			(*token)->token_type = less_less;
 			(*token)->content = ft_strdup("<<");
 		}
 		if (!(*token)->content)
@@ -121,7 +121,7 @@ int	concatenate(t_token **tokens)
 	while (temp != NULL && temp->next != NULL)
 	{
 		quote = 0;
-		if (temp->token_type == STRING && temp->next->token_type == STRING)
+		if (temp->token_type == string && temp->next->token_type == string)
 		{
 			quote = quote_check(temp);
 			if (merge_nodes(temp, (temp->next), quote) == EXIT_FAILURE)

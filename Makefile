@@ -6,7 +6,7 @@
 #    By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/14 11:46:33 by djagusch          #+#    #+#              #
-#    Updated: 2023/06/01 16:19:58 by asarikha         ###   ########.fr        #
+#    Updated: 2023/06/05 13:45:47 by asarikha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ FILES = main \
 	parser_utils \
 	parser_print \
 	token_print \
-	do_child \
+	exe_child \
 	execute \
 	find_command \
 	redirect \
@@ -77,11 +77,6 @@ READLINE = -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/includ
 
 NAME = minishell
 
-PARSER_F := $(shell find $S/parser -type f -name '*.c')
-BUILTIN_F = $(shell find $S/builtins -type f -name '*.c')
-ENV_F = $(shell find $S/env -type f -name '*.c')
-REDIR_F = $(shell find $S/redir_exec -type f -name '*.c')
-
 ### RULES ###
 all: $(NAME)
 
@@ -98,30 +93,6 @@ $O:
 $O/%.o: $S/%.c $(HEADER) | $O
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-parser_test: $(LIBFT) $(PARSER_F) src/printing/parser_print.c src/tests/parser_test.c
-	@$(CC) $(CFLAGS) src/printing/token_print.c src/printing/parser_print.c src/utils/free_memory.c \
-	$(PARSER_F) src/utils/ft_error.c src/tests/parser_test.c \
-	-Iincludes/ includes/parser.h includes/lexer.h includes/minishell.h \
-	-Llibft -lft
-
-test_builtin: $(LIBFT)
-	@$(CC) $(CFLAGS) src/printing/token_print.c src/printing/parser_print.c src/utils/free_memory.c \
-	$(BUILTIN_F) src/utils/ft_error.c src/tests/builtin_test.c \
-	-Iincludes/ includes/parser.h includes/lexer.h includes/minishell.h \
-	-Llibft -lft -g
-
-test_env: $(LIBFT)
-	@$(CC) $(CFLAGS) src/printing/token_print.c src/printing/parser_print.c src/utils/free_memory.c \
-	$(ENV_F) src/utils/ft_error.c src/tests/env_test.c \
-	-Iincludes/ includes/parser.h includes/lexer.h includes/minishell.h \
-	-Llibft -lft -g
-  
-test_redir: $(LIBFT)
-	$(CC) $(CFLAGS) src/printing/token_print.c src/printing/parser_print.c src/utils/free_memory.c \
-	$(ENV_F) $(REDIR_F) $(BUILTIN_F) $(PARSER_F) src/utils/ft_error.c src/tests/parser_test.c \
-	-Iincludes/ includes/parser.h includes/lexer.h includes/minishell.h \
-	-Llibft -lft -g
-
 ### LIBFT
 
 libft: $(LIBFT)
@@ -129,6 +100,11 @@ libft: $(LIBFT)
 $(LIBFT):
 	@$(MAKE) -C libft
 	@echo "$(COLOUR_GREEN) $(LIBFT) created$(COLOUR_END)"
+
+ENV_FILES := $(foreach FILE,$(FILES),$(shell find $S/env -type f -name '$(FILE).c'))
+
+env_test:
+	$(CC) $(CFLAGS) $(ENV_FILES) src/builtins/ft_env.c test.c $(HEADER) -Llibft -lft -g
 
 ### CLEANING
 
@@ -143,6 +119,6 @@ fclean : clean
 	@$(RM) $(NAME)
 	@echo "$(COLOUR_RED) $(NAME) removed$(COLOUR_END)"
 
-re: fclean $(NAME) bonus
+re: fclean $(NAME)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

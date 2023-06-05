@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 11:07:51 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 09:48:11 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:12:49 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,15 @@ t_env	*find_env(t_env **env, char *key, int predecessor)
 	tmp = *env;
 	if (!predecessor)
 	{
-		while (tmp)
-		{
-			if (ft_strcmp(key, tmp->key) == 0)
-				break ;
+		while (tmp && ft_strcmp(key, tmp->key) != 0)
 			tmp = tmp->next;
-		}
 	}
+	else if (ft_strcmp(key, tmp->key) == 0)
+		return (tmp);
 	else
 	{
-		while (ft_strcmp(key, tmp->key) != 0 && tmp && tmp->next)
-		{
-			if (ft_strcmp(key, tmp->next->key) == 0)
-				break ;
+		while (tmp->next && ft_strcmp(key, tmp->next->key) != 0)
 			tmp = tmp->next;
-		}
 	}
 	return (tmp);
 }
@@ -95,12 +89,8 @@ char	*find_value(t_env **env, char *key)
 	if (!env || !*env || !key || !(key[0]))
 		return (NULL);
 	tmp = *env;
-	while (tmp)
-	{
-		if (ft_strcmp(key, tmp->key) == 0)
-			break ;
+	while (tmp && ft_strcmp(key, tmp->key) != 0)
 		tmp = tmp->next;
-	}
 	if (tmp)
 		return (tmp->value);
 	return (NULL);
