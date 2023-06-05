@@ -6,7 +6,7 @@
 /*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:06:16 by asarikha          #+#    #+#             */
-/*   Updated: 2023/06/01 15:20:34 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:51:57 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static	t_heredoc	*new_doc(char *line)
 	return (new);
 }
 
-//expand if is not quote
 static	int	write_to_pipe(t_heredoc *hrdc, int fd[2])
 {
 	while (hrdc)

@@ -6,7 +6,7 @@
 /*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:31:11 by asarikha          #+#    #+#             */
-/*   Updated: 2023/06/01 14:50:44 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:21:17 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static int	after_redir_empty(char *line)
 
 int	skip_pipe(char *line, int i)
 {
-	ft_printf("in skip pipe\n");
 	if (behind_pipe_empty(line, i))
 		return (-1);
 	while (line[++i])

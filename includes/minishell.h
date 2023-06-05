@@ -6,7 +6,7 @@
 /*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:50:57 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 16:11:46 by asarikha         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:18:14 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "libft.h"
 # include "syntax.h"
 # include "lexer.h"
+# include "redirect.h"
 # include "ft_error.h"
 # include "parser.h"
 # include <readline/readline.h>
@@ -38,7 +39,7 @@
 typedef struct s_builtin
 {
 	char	*name;
-	int		(*builtin)(t_env **, t_command *);
+	int		(*builtin)(t_env **, t_command *, int out_fd);
 }		t_builtin;
 
 typedef struct s_heredoc
@@ -54,6 +55,7 @@ typedef struct s_info
 	char		*line;
 	int			**fds;
 	int			*pids;
+	int			n_cmd;
 	int			exit_value;
 	t_env		*env;
 }		t_info;

@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   do_child.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 15:22:29 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 09:31:20 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:34:44 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirect.h"
 #include "parser.h"
 #include "minishell.h"
-
-#define CURRENT 3
 
 static int	dup_fds(int **fds, int current)
 {
@@ -34,7 +32,6 @@ static int	dup_fds(int **fds, int current)
 			return (EPIPE);
 		}
 	}
-	ft_printf_fd(2, "dup success\n");
 	return (0);
 }
 

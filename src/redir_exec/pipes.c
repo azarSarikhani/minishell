@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asarikha <asarikha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:47:58 by djagusch          #+#    #+#             */
-/*   Updated: 2023/06/01 09:45:35 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:35:11 by asarikha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ static void	enter_file_fds(t_command *command, int **pipes, int i)
 		if (pipes[i][0] != 0 && close(pipes[i][0]) < 0)
 			ft_error(EPIPE, "");
 		pipes[i][0] = command->fds[0];
-		printf("%d\n", pipes[i][0]);
 	}
 	if (command->outfile)
 	{
 		if (pipes[i + 1][1] != 0 && close(pipes[i + 1][1]) < 0)
 			ft_error(EPIPE, "");
 		pipes[i + 1][1] = command->fds[1];
-		printf("%d\n", pipes[i + 1][1]);
 	}
 	else
 		pipes[i + 1][1] = 1;
@@ -89,8 +87,6 @@ int	**set_up_pipes(t_command *command, int n_cmd)
 	return (pipes);
 }
 
-#define CURRENT 1
-
 void	close_fds(int **fds, int cur, int n_cmd)
 {
 	int	pipe;
@@ -100,7 +96,7 @@ void	close_fds(int **fds, int cur, int n_cmd)
 	{
 		if (pipe != cur && pipe != n_cmd && fds[pipe][0] != 0)
 			close(fds[pipe][0]);
-		if (pipe - 1!= cur && pipe != 0 && fds[pipe][1] != 1)
+		if (pipe - 1 != cur && pipe != 0 && fds[pipe][1] != 1)
 			close(fds[pipe][1]);
 		pipe++;
 	}
