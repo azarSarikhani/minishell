@@ -6,7 +6,7 @@
 /*   By: djagusch <djagusch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 11:31:11 by asarikha          #+#    #+#             */
-/*   Updated: 2023/06/05 10:46:51 by djagusch         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:40:10 by djagusch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static	int	run_line(char *line, t_env **env)
 		return (EXIT_FAILURE);
 	}
 	g_info.commands = init_command(g_info.tokens, 0);
-	redirect_exe(g_info.commands, *env);
+	if (g_info.exit_value == 0)
+		redirect_exe(g_info.commands, *env);
 	ft_clear_everything(g_info);
 	return (0);
 }
@@ -37,14 +38,14 @@ static	void	handle_exit(char *line)
 	{
 		if (g_info.env)
 			free_env(&g_info.env);
-		write(2, "exit\n", 5);
+		write(2, "Sashay away\n", 12);
 		exit(1);
 	}
 	if (ft_strcmp(line, "exit") == 0)
 	{
 		if (g_info.env)
 			free_env(&g_info.env);
-		write(2, "exit\n", 5);
+		write(2, "Sashay away\n", 12);
 		g_info.exit_value = 0;
 		free(line);
 		exit(0);

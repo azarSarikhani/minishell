@@ -65,7 +65,7 @@ int	get_exe_path(t_env **env, t_command *command)
 		if (!is_builtin(command))
 		{
 			path = find_value(env, "PATH");
-			if (path)
+			if (path && command->command && command->command[0])
 				find_path(&path, &(command->command));
 		}
 		command = command->next;
