@@ -16,7 +16,7 @@
 <img src="img/minishell_banner.png" width="900px" align="center">
 
 This is the Minishell project for Hive Helsinki (42 School). Minishell is a shell implementation that provides a basic command-line interface, offering various features and functionalities while adhering to most Unix shell standards.
-This project was done in collaboration with [Azär Sarikhani Aghmioun](https://github.com/azarSarikhani) 
+This project was done in collaboration with [Dorian Jagusch](https://github.com/dorianjagusch) 
 
 ## Features
 
