@@ -74,7 +74,7 @@ Before you begin, make sure you have the following installed:
 ## Usage
 
 Minishell works similarly to other Unix shells. You can run various shell commands, utilise built-in commands, set environment variables, and perform other shell-related tasks.
-You will be greeted with a very colourful welcome message upon running the shell. Overall, the projects visual design is inspired by [Azär's](https://github.com/azarSarikhani) and my shared identity as members of the LGBTQ community.
+You will be greeted with a very colourful welcome message upon running the shell. Overall, the projects visual design is inspired by [Dorian's](https://github.com/dorianjagusch) and my shared identity as members of the LGBTQ community.
 
 ## Devision of labour
 
