@@ -55,7 +55,7 @@ Before you begin, make sure you have the following installed:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/dorianjagusch/minishell.git
+   git clone https://github.com/azarSarikhani/minishell.git
    cd minishell
    ```
 
